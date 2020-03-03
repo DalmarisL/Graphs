@@ -15,6 +15,11 @@ typedef  enum boolean  bool;
 
 typedef struct node *link;
 
+
+    int V;
+    int A;
+
+
 struct graph ///grafo
 {
   int V; ///vertices
@@ -40,6 +45,7 @@ static link NeWnode(vertex w, link next)
     a->next = next;
     return a;
 }
+
 
 
 void Prim(UGraph G, vertex *pa)
@@ -69,3 +75,5 @@ void Prim(UGraph G, vertex *pa)
       }
    }
 }
+
+
