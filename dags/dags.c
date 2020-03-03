@@ -41,6 +41,25 @@ static link NeWnode(vertex w, link next)
     return a;
 }
 
+Graph Inicio(int V)
+{
+    Graph G = malloc(sizeof *G);
+    G->V = V;
+    G->V = 0;
+    G->adj = malloc(V * sizeof(link));
+    for(vertex v = 0; v < V; ++v)
+        G->adj[v] = NULL;
+    return G;
+}
+
+void InsereArco(Graph G, vertex v, vertex w)
+{
+    for(link a = G->adj[v]; a != NULL; a = a->next)
+        if(a->w == w) return;
+    G->adj[v] = NeWnode(w, G->adj[v]);
+    G->A++;
+}
+
 void DagA(Dag G, vertex *vv, vertex s, vertex *pa, int *dist)
 {
     for (vertex v = 0; v < G->V; ++v)
@@ -60,10 +79,31 @@ void DagA(Dag G, vertex *vv, vertex s, vertex *pa, int *dist)
 }
 
 int main (void) {
+
+    int V;
+    Graph G;
+    vertex v, w, pa;
+
    FILE *entrada;
    entrada = fopen ("dados.txt", "r");
    if (entrada == NULL) {
       printf ("\nNão encontrei o arquivo!\n");
-      exit (EXIT_FAILURE);
+      return 0;
    }
+   else
+   {
+       fscanf(entrada, "%d", &V);
+   }
+
+   G = Inicio(V);
+
+   fscanf(entrada, "%d %d", &v, &w);
+   while(!feof(entrada))
+   {
+        InsereArco(G,v,w);
+        InsereArco(G, w,v);
+        fscanf(entrada,"%d %d", &v,&w);
+   }
+
 }
+

@@ -3,7 +3,7 @@
 
 
 #define vertex int
-#define INT_MAX 9999
+#define INFINITY 9999
 #define UGraph Graph
 
 
@@ -40,15 +40,32 @@ static link NeWnode(vertex w, link next)
     a->next = next;
     return a;
 }
-
-
-int GRAPHcptBF1( Graph G, vertex s, vertex *pa, int *dist)
+Graph Inicio(int V)
 {
-   const int INF = INT_MAX;
+    Graph G = malloc(sizeof *G);
+    G->V = V;
+    G->V = 0;
+    G->adj = malloc(V * sizeof(link));
+    for(vertex v = 0; v < V; ++v)
+        G->adj[v] = NULL;
+    return G;
+}
+
+void InsereArco(Graph G, vertex v, vertex w)
+{
+    for(link a = G->adj[v]; a != NULL; a = a->next)
+        if(a->w == w) return;
+    G->adj[v] = NeWnode(w, G->adj[v]);
+    G->A++;
+}
+
+int BellmanFord( Graph G, vertex s, vertex *pa, int *dist)
+{
+
    QUEUEinit( G->A);
    bool onqueue[1000];
    for (vertex u = 0; u < G->V; ++u)
-      pa[u] = -1, dist[u] = INF, onqueue[u] = false;
+      pa[u] = -1, dist[u] = INFINITY, onqueue[u] = false;
    pa[s] = s, dist[s] = 0;
    QUEUEput( s);
    onqueue[s] = true;
@@ -79,12 +96,35 @@ int GRAPHcptBF1( Graph G, vertex s, vertex *pa, int *dist)
    }
 }
 
+
 int main (void) {
+
+    int V;
+    Graph G;
+    vertex v, w, pa;
+
    FILE *entrada;
    entrada = fopen ("dados.txt", "r");
    if (entrada == NULL) {
       printf ("\nNão encontrei o arquivo!\n");
-      exit (EXIT_FAILURE);
+      return 0;
    }
+   else
+   {
+       fscanf(entrada, "%d", &V);
+   }
+
+   G = Inicio(V);
+
+   fscanf(entrada, "%d %d", &v, &w);
+   while(!feof(entrada))
+   {
+        InsereArco(G,v,w);
+        InsereArco(G, w,v);
+        fscanf(entrada,"%d %d", &v,&w);
+   }
+
 }
+
+
 
