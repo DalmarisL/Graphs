@@ -111,3 +111,13 @@ void UFunion(vertex v0, vertex w0)
         sz[v0] += sz[w0];
     }
 }
+
+int main (void) {
+   FILE *entrada;
+   entrada = fopen ("dados.txt", "r");
+   if (entrada == NULL) {
+      printf ("\nNão encontrei o arquivo!\n");
+      exit (EXIT_FAILURE);
+   }
+}
+

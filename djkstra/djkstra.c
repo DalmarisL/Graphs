@@ -68,3 +68,13 @@ void Dijkstra(Graph G, vertex s, vertex *pa, int *dist)
    }
 
 }
+
+int main (void) {
+   FILE *entrada;
+   entrada = fopen ("dados.txt", "r");
+   if (entrada == NULL) {
+      printf ("\nNão encontrei o arquivo!\n");
+      exit (EXIT_FAILURE);
+   }
+}
+
